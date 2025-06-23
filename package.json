@@ -1,17 +1,28 @@
 {
-  "name": "digtionarybot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@gradio/client": "^1.14.2",
-    "node-cron": "^3.0.3",
-    "node-telegram-bot-api": "^0.66.0",
-    "nodemon": "^3.1.10"
-  }
+	"name": "digtionarybot",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon ./index.js && nodemon ./tgterminal.js && nodemon config.js",
+		"start2": "node ./index.js && node ./tgterminal.js && node config.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@gradio/client": "^1.14.2",
+		"node-cron": "^3.0.3",
+		"node-telegram-bot-api": "^0.66.0",
+		"nodemon": "^3.1.10"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/qu1z3x/digtionarybot.git"
+	},
+	"bugs": {
+		"url": "https://github.com/qu1z3x/digtionarybot/issues"
+	},
+	"homepage": "https://github.com/qu1z3x/digtionarybot#readme",
+	"keywords": [],
+	"description": ""
 }
