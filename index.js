@@ -11,7 +11,7 @@ import {
 
 import { config } from "./config.js";
 
-const TOKEN = config.TOKENs[0];
+const TOKEN = config.TOKENs[1];
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 const qu1z3xId = "923690530";
@@ -108,12 +108,6 @@ async function menu(chatId) {
 							{ text: `поддержка 💭`, callback_data: `supportMenu0` },
 							{ text: `настройки ⚙️`, callback_data: `settings` },
 						],
-						[
-							{
-								text: "присылай любой текст ⬇️",
-								callback_data: "-",
-							},
-						],
 					],
 				},
 			}
@@ -164,7 +158,7 @@ async function explanation(chatId) {
 										: currentSession.explanationLevel == 1
 										? `привести пример💡`
 										: `проверч́ик все пояснит)`
-									: `проверч́ик на связи`,
+									: `проверч́ик все пояснит)`,
 								callback_data: `setExplanationLevel`,
 							},
 						],
@@ -227,7 +221,7 @@ async function settings(chatId) {
 		await bot.editMessageMedia(
 			{
 				type: "photo",
-				media: "AgACAgIAAxkBAAIC2mhVLJjjefVLvVcFxDmuZFfHYWN4AAI07zEbSs6wStI21KvJgzHnAQADAgADcwADNgQ",
+				media: "AgACAgIAAxkBAAIDgmhaNhyAgNiYaSFGR3HTLxGOc06KAAKu-TEb7JXRSugtR_CaN_8AAQEAAwIAA3kAAzYE",
 				caption: `<b>👤 Профиль:</b>\n<blockquote><b>•</b> твое имя: ${
 					dataAboutUser.action == "editLogin"
 						? `... <a href="https://t.me/${BotName}/?start=stopEditLogin">❌</a>`
@@ -472,9 +466,6 @@ async function StartAll() {
 
 	bot.on("photo", async (message) => {
 		console.log(message);
-		log(
-			1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-		);
 	});
 
 	bot.on("text", async (message) => {
@@ -562,10 +553,15 @@ async function StartAll() {
 					switch (text) {
 						case "/restart":
 						case "/start":
+							if (dataAboutUser.action != "explanation")
+								try {
+									bot.deleteMessage(chatId, dataAboutUser.messageId);
+								} catch (error) {}
+
 							firstMeeting(chatId, 1);
 							break;
 						case "/menu":
-							if (dataAboutUser.action == "menu")
+							if (dataAboutUser.action != "explanation")
 								try {
 									bot.deleteMessage(chatId, dataAboutUser.messageId);
 								} catch (error) {}
@@ -579,6 +575,11 @@ async function StartAll() {
 						case "":
 							break;
 						case "/settings":
+							if (dataAboutUser.action != "explanation")
+								try {
+									bot.deleteMessage(chatId, dataAboutUser.messageId);
+								} catch (error) {}
+
 							await bot.sendMessage(chatId, "ㅤ").then((message) => {
 								dataAboutUser.messageId = message.message_id;
 							});
